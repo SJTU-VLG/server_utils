@@ -10,15 +10,16 @@
 * How to properly use GPUs to run your [tensorflow](#324-tensorflow-v112) program.
 
 
-##### NOTICE
+#### NOTICE
 * If you need to run a program which uses multi-GPUs, please **do not use more than 4 GPU cards**. You can add an environment variable in your terminal to set the specific GPU cards for your program, e.g., 
     Make 'GPU-0', 'GPU-1' and 'GPU-2' available for you:
     ```bash
     export CUDA_VISIBLE_DEVICES=0,1,2
     ```
+ * Please backup your important data and files to your local device and clean up cache files (e.g., software installation packages that have been installed or removed, temporary files, etc) from time to time. Thanks for your cooperation!
 
 
-##### Contents
+#### Contents
 * [1. Apply for Server Account](#1-apply-for-server-account)
     * [1.1 Checking for exisiting SSH keys](#11-checking-for-exisiting-ssh-keys)
     * [1.2 Generating a new SSH key](#12-generating-a-new-ssh-key)
@@ -40,11 +41,11 @@
 * [4. Datasets](#4-datasets)
 
 ## 1. Apply for Server Account
-Please send your following information to any administrator with the subject in the format as **"Apply Server-4 Account_YourName"** to apply a server account:
+Please send your following information to the [administrator](mailto:bcmilht@outlook.com) with the subject in the format as **"Apply Server-4 Account_YourName"** to apply a server account:
 * Full name
 * Email address (frequently used)
 * Phone number
-* SSH **public key** file named `username.pub` (e.g., `zhangqinchuan.pub`) as an attachment into the email
+* SSH **public key** file named `username.pub` (e.g., `zhangsan.pub`) as an attachment into the email
 
 You can check to see if you have any existing SSH keys you are using on other devices. If you don't have an existing public and private key pair, or don't wish to use any that are available to connect to the server, then [generate a new SSH key](#12-generating-a-new-ssh-key).
 
@@ -128,17 +129,17 @@ You can get more information about [commonly used SSH configuration options](htt
 ### 2.3 Login from MobaXterm (Windows only)
 1. Download and install [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html)
 2. Create a new remote session by click the "Session" button
-![Create a session](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_create_session.jpg)
+![Create a session](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_create_session.jpg)
 3. Configure the session as the instructions below:
-![Config a session](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_config_session.png)
+![Config a session](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_config_session.png)
 4. When you have configured a session, you can easily login the server by double clicking the session icon in the side bar.
-![Start a session](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_side_bar.jpg)
+![Start a session](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_side_bar.jpg)
 
 
 ### 2.4 Port Forwarding
 When you are using [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/latest/public_server.html) or some other **Web servers** (e.g., [tensorboard](https://www.tensorflow.org/guide/summaries_and_tensorboard)), you will find that you can only connect the server through port `port` and all the other ports are closed. So you need to configure the **port forwarding (Tunnel)** to access your web server.
 
-Suppose your web server uses port `123` and you want to access it through `http://localhost:456` (or `https` is you configured encrypted communication using OpenSSL) in your local web browser.
+Suppose your web server uses port `123` and you want to access it through `http://localhost:456` (or `https` if you configured encrypted communication using OpenSSL) in your local web browser.
 
 1. Check to see which ports are being used by other users and system by executing the command below:
     ```bash
@@ -161,10 +162,10 @@ Suppose your web server uses port `123` and you want to access it through `http:
         ```
     * [Login from MobaXterm](#23-login-from-mobaxterm-windows-only)
         1. Create a SSH tunnel by following the instructions below:
-        ![Click Tunnneling](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_tunnel_1.jpg)
-        ![Create a new SSH tunnel](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_tunnel_2.jpg)
-        ![Configure port forwarding](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_tunnel_3.jpg)
-        ![Start port forwarding](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_tunnel_4.jpg)
+        ![Click Tunnneling](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_tunnel_1.jpg)
+        ![Create a new SSH tunnel](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_tunnel_2.jpg)
+        ![Configure port forwarding](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_tunnel_3.jpg)
+        ![Start port forwarding](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_tunnel_4.jpg)
         2. Open web browser to access `http://localhost:456`
 
 ### 2.5 X11 Forwarding
@@ -191,7 +192,7 @@ Enable X11 forwarding when login to the server:
     ```
 * [Login from MobaXterm](#23-login-from-mobaxterm-windows-only)
 Edit your session settings:
-![Enable X11 forwarding](https://raw.githubusercontent.com/SJTU-VLG/server_utilities/master/imgs/mobaxterm_x11.jpg)
+![Enable X11 forwarding](https://raw.githubusercontent.com/SJTU-VLG/server_utils/master/imgs/mobaxterm_x11.jpg)
 
 
 ## 3. Softwares
@@ -261,17 +262,23 @@ Please select `Anaconda2` or `Anaconda3` as your default python interpreter, in 
     export PATH="$PATH:/usr/local/anaconda3/envs/py2/bin"
     ```
 
-**Please do not install an entire Anaconda package in your own directory,** which occupies much unnecessary space of the server. When you need to import some packages which has not been installed in the system Anaconda yet (normally you will get `ModuleNotFoundError`), you can choose one of the following solutions:
-   1. Contact the administrator, tell the administrator what packages you need, and the administrator will install these packages into the system Anaconda directory.
-   2. Install packages in your directory by entering the following commands:
-      * Install by [`pip install`](https://pip.pypa.io/en/stable/reference/pip_install/#options) with `--user` option
-      ```bash
-      $ pip install package_name --user
-      ```
-      * Install by [`conda install`](https://conda.io/docs/commands/conda-install.html) with `-p` option
-      ```bash
-      $ conda install package_name -p /path/to/your/directory
-      ```
+**Please do not install an entire Anaconda package in your own directory**, which will occupy much unnecessary storage space in the server. If your program needs to import some third-party python modules which have not been installed in the system Anaconda yet (normally you will get a `ModuleNotFoundError` from your program's output), you can take one of the following solutions to make it right:
+   1. Contact the [administrator](mailto:bcmilht@outlook.com), tell the administrator which package(s) you need to use, the administrator will install the package(s) into the system Anaconda once your message has been received.
+   2. Install the package(s) yourself in your own directory by one of the following options:
+      - Install by [`pip install`](https://pip.pypa.io/en/stable/reference/pip_install/#options) with `--user` option:
+        ```bash
+        $ pip install package_name --user
+        ```
+
+      - Install by [`conda install`](https://conda.io/docs/commands/conda-install.html) with `-p` option:
+        ```bash
+        $ conda install package_name -p /path/to/your/directory
+        ```
+
+      - Download the source code and build it by yourself in your own directory. 
+
+      For the package installed by `conda` in your own directory, make sure to add the corresponding path to your `$PYTHONPATH` so that your python program can find it. 
+
 For creating an isolate Python environment for one of your projects when necessary, see ["Create an environment with conda"](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) for more information.
 
 #### 3.2.2 CUDA 9.0
@@ -284,7 +291,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-9.0/lib64"
 #### 3.2.3 PyTorch
 * version: v1.0.1
 
-PyTorch is installed by `conda` with CUDA support by `cudatoolkit-10.0.130`. As for now, CUDA-10.0 has not been installed in the system so **you don't need to configure the `$PATH` for CUDA**. All you need to do is to make sure you have configured the correct [CONDA_PATH](#321-anaconda).
+PyTorch is installed by `conda` with CUDA support by `cudatoolkit-10.0.130`. As for now, CUDA-10.0 has not been installed in the system so **you don't need to configure the `$PATH` for CUDA** (Nothing will be affected even if you've configured `$PATH`). All you need to do is to make sure you have configured the correct [CONDA_PATH](#321-anaconda).
 
 Read [official documents](https://pytorch.org/docs/stable/index.html) for the usage of PyTorch.
 
@@ -330,11 +337,12 @@ sess = tf.Session(config=config)
 See official [github](https://github.com/tensorflow) and [API docs](https://www.tensorflow.org/api_docs/python/tf?hl=zh-cn) for the usage of TensorFlow.
 
 ## 4. Datasets
-All datasets directories are put in `/data/datasets/`. Please see [DATASETS.md](https://github.com/SJTU-VLG/server_utilities/blob/master/Datasets.md) for more information about each dataset.
+All datasets directories are put in `/data/datasets/`. Please see [DATASETS.md](https://github.com/SJTU-VLG/server_utils/blob/master/DATASETS.md) for more information about each dataset.
 
-If the dataset you need to use has not been downloaded to the server yet, you can first add the download links into [download_datasets.py](https://github.com/SJTU-VLG/server_utilities/blob/master/scripts/download_datasets.py) and relevant information (basic introduction, links) into [DATASETS.md](https://github.com/SJTU-VLG/server_utilities/blob/master/Datasets.md) by creating a [new pull request](https://github.com/SJTU-VLG/server_utilities/pull/new/master), then contact the administrator to help you download the dataset to the server.
+If the dataset you need to use has not been downloaded to the server yet, you can first add the download links into [download_datasets.py](https://github.com/SJTU-VLG/server_utils/blob/master/scripts/download_datasets.py) and relevant information (basic introduction, links) into [DATASETS.md](https://github.com/SJTU-VLG/server_utils/blob/master/DATASETS.md) by creating a [new pull request](https://github.com/SJTU-VLG/server_utils/pull/new/master), then contact the administrator to help you download the dataset to the server.
 
-Welcome to help us collect more valuable datasets to enrich our research. **Your contribution will be greatly appreciated :)**
+Welcome to help us collect more valuable datasets to enrich our research. **Your contribution will be greatly appreciated!**  :smiley: 
+
 
 ---
 TBD...
