@@ -1,13 +1,19 @@
 # Server User Manual
 
+##### Recent Updates (2019-3-8, so far only server-4): 
+* GPU driver has been updated from `410.78` to `418.43`.
+* [CUDA](#322-cuda)-10.0 has been installed in `/usr/local/cuda-10.0` with cuDNN-7.4.2.
+* [TensorFlow](#324-tensorflow) has been updated to `1.13.1` (CUDA-10.0 support).
+* [tensorboardX](#3232-tensorboardx) has been updated to `v1.6`.
+
 ##### Recent Updates (2019-3-5): 
-* [PyTorch](#323-pytorch) has been updated to the latest stable version **v1.0.1** (CUDA support version: CUDA-10.0) for both Python3 and Python2;
-* cuDNN has been updated to v7.4.2;
+* [PyTorch](#323-pytorch) has been updated to `v1.0.1` (CUDA-10.0 support);
+* cuDNN has been updated to `7.4.2`;
 
 ##### Recent Updates (2018-12-13): 
-* [CUDA](#322-cuda-90)-9.2 has been uninstalled;
-* PyTorch has been updated to the v1.0 (with CUDA-10.0);
-* How to properly use GPUs to run your [tensorflow](#324-tensorflow-v112) program.
+* [CUDA](#322-cuda)-9.2 has been uninstalled;
+* PyTorch has been updated to the `v1.0` (CUDA-10.0 support);
+* How to properly use GPUs to run your [tensorflow](#324-tensorflow) program.
 
 
 #### NOTICE
@@ -16,7 +22,7 @@
     ```bash
     export CUDA_VISIBLE_DEVICES=0,1,2
     ```
- * Please backup your important data and files to your local device and clean up cache files (e.g., software installation packages that have been installed or removed, temporary files, etc) from time to time. Thanks for your cooperation!
+ * **Please backup your important data and files to your local device and clean up cache files** (e.g., software installation packages that have been installed or removed, temporary files, etc) from time to time. Thanks for your cooperation!
 
 
 #### Contents
@@ -33,7 +39,7 @@
     * [3.1 Tools](#31-tools)
     * [3.2 Python and Deep Learning packages](#32-python-and-deep-learning-packages)
         * [3.2.1 Anaconda](#321-anaconda)
-        * [3.2.2 CUDA 9.0](#322-cuda-90)
+        * [3.2.2 CUDA](#322-cuda)
         * [3.2.3 PyTorch](#323-pytorch)
             * [3.2.3.1 torchvision](#3231-torchvision)
             * [3.2.3.1 tensorboardX](#3232-tensorboardx)
@@ -281,11 +287,11 @@ Please select `Anaconda2` or `Anaconda3` as your default python interpreter, in 
 
 For creating an isolate Python environment for one of your projects when necessary, see ["Create an environment with conda"](https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands) for more information.
 
-#### 3.2.2 CUDA 9.0
-CUDA 9.0 is installed in `/usr/local/cuda-9.0` with **cuDNN 7.4.2** which is in support of [TensorFlow](#324-tensorflow-v112) (so far). Before importing these deep learning libraries to run your program, you need to configure the environment by adding the following lines into your `~/.bashrc`:
+#### 3.2.2 CUDA
+There are multiple versions of CUDA library (CUDA-9.0 and CUDA-10.0) installed in `/usr/local/cuda-x.0` with cuDNN-7.4.2. Before importing these deep learning libraries to run your program, you need to configure the environment by adding the following lines into your `~/.bashrc`:
 ```bash
-export PATH="$PATH:/usr/local/cuda-9.0/bin"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-9.0/lib64"
+export PATH="$PATH:/usr/local/cuda-x.0/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-x.0/lib64"
 ```
 
 #### 3.2.3 PyTorch
@@ -316,7 +322,7 @@ By default, tensorboard uses port `123` for the web server, you need to enable [
 See official [github](https://github.com/lanpa/tensorboardX) and [documents](https://tensorboardx.readthedocs.io/en/latest/tensorboard.html) for the usage of tensorboardX.
 
 #### 3.2.4 TensorFlow
-* version: v1.12
+* version: v1.13.1
 
 By default, **your tensorflow program which runs on GPUs takes up all available GPU resources**, which may cause some troubles to other users. It is recommended to add the following codes in the head of your main program to use limited GPU resources (memories):
 ```python
