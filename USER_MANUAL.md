@@ -17,8 +17,7 @@
 
 
 #### NOTICE
-* If you need to run a program which uses multi-GPUs, please **do not use more than 4 GPU cards**. You can add an environment variable in your terminal to set the specific GPU cards for your program, e.g., 
-    Make 'GPU-0', 'GPU-1' and 'GPU-2' available for you:
+* If you need to run a program which uses multi-GPUs, please **do not use more than 4 GPU cards**. You can add an environment variable in your terminal to set the specific GPU cards for your program, e.g., make 'GPU-0', 'GPU-1' and 'GPU-2' available for you:
     ```bash
     export CUDA_VISIBLE_DEVICES=0,1,2
     ```
@@ -47,11 +46,14 @@
 * [4. Datasets](#4-datasets)
 
 ## 1. Apply for Server Account
-Please send your following information to the [administrator](mailto:bcmilht@outlook.com) with the subject in the format as **"Apply Server-4 Account_YourName"** to apply a server account:
-* Full name
+Please send your following information (in Chinese/English) to the [administrator](mailto:bcmilht@outlook.com) with the subject in the format as **"Apply Server Account_YourName"** to apply a server account:
+* Full name (e.g., San Zhang)
 * Email address (frequently used)
 * Phone number
-* SSH **public key** file named `username.pub` (e.g., `zhangsan.pub`) as an attachment into the email
+* Purpose (What will you mainly do on the server?)
+* SSH **public key** file named `username.pub` (e.g., `zhangsan.pub`) as an attachment file into the email
+
+The administrator will send you an email which contains your account information and the IP address of the server after your application has been verified and approved.
 
 You can check to see if you have any existing SSH keys you are using on other devices. If you don't have an existing public and private key pair, or don't wish to use any that are available to connect to the server, then [generate a new SSH key](#12-generating-a-new-ssh-key).
 
